@@ -1,2 +1,1 @@
-# jiracli.nvim
-jiracli.nvim
+# Jira.Vim

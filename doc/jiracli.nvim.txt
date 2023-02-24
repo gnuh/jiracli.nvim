@@ -1,0 +1,109 @@
+*jiracli.nvim.txt* A Jira plugin for nvim
+*jiracli.nvim*
+
+==============================================================================
+CONTENTS                                                  *jiracli.nvim-contents*
+
+   01. Intro ............................................... |jiracli.nvim-intro|
+   02. Features ......................................... |jiracli.nvim-features|
+   03. Configuration ............................... |jiracli.nvim-configuration|
+   04. Commands ......................................... |jiracli.nvim-commands|
+   05. Usage................................................ |jiracli.nvim-usage|
+   06. Key Bindings.................................. |jiracli.nvim-key-bindings|
+   07. License ........................................... |jiracli.nvim-license|
+
+==============================================================================
+INTRODUCTION                                                 *jiracli.nvim-intro*
+
+jiracli.nvim is a Neovim plugin that magically bridges your favorite editor
+with jira-cli (https://github.com/ankitpokhrel/jira-cli).
+
+
+==============================================================================
+FEATURES                                                  *jiracli.nvim-features*
+
+* Issues
+  [X] List all issues
+  [X] List all issues assigned to you
+  [X] List all issues based on the branch name
+  [ ] Search
+  [ ] Create
+  [ ] Assign
+  [ ] Update
+  [ ] Move
+  [ ] Comment
+  [ ] Link/Unlink
+  [ ] Clone
+  [ ] Delete
+  [ ] Worklog
+* Boards
+  [ ] List all boards
+  [ ] List all issues in a board
+* Projects
+  [ ] Switch between projects
+  [ ] Create a new Project
+  [ ] Update
+* Sprint
+  [ ] List
+  [ ] Create
+  [ ] Update
+
+==============================================================================
+CONFIGURATION                                        *jiracli.nvim-configuration*
+
+jira-cli is available as a downloadable packaged binary for Linux, macOS,
+and Windows.
+Please visite the link https://github.com/ankitpokhrel/jira-cli and follow
+the installation steps.
+
+==============================================================================
+COMMANDS                                                  *jiracli.nvim-commands*
+
+:JiraCliIssues                                                   *:JiraCliIssues*
+  Get all issues
+
+:JiraCliIssuesMe                                               *:JiraCliIssuesMe*
+  Get all issues related to YOU
+
+:JiraCliIssuesBranch                                      *:JiraCliIssuesBranch*
+  Get Issues based on the branch that you're in, for example:
+  `feat/ABCD-77/new-feature`
+  or
+  `bug-ABCD-77-found-a-bug `
+  The pattern here is `ABCD-77` where `ABCD` is your project key value
+  provided by Jira and the number is the `issue-id`
+
+==============================================================================
+USAGE                                                        *jiracli.nvim-usage*
+
+require("jiracli").setup(), by default it will auto_keybind.
+If you have `which-key` plugin installed it will use it, otherwise it will use
+default neovim `keymap`.
+
+`:JiraCliIssues`
+  Get all issues
+
+`:JiraCliIssuesMe`
+  Get all issues related to YOU
+
+`:JiraCliIssuesBranch`
+  Get Issues based on the branch that you're in, for example:
+  `feat/ABCD-77/new-feature`
+  or
+  `bug-ABCD-77-found-a-bug`
+  The pattern here is `ABCD-77` where `ABCD` is your project key value
+  provided by Jira and the number is the `issue-id`
+
+==============================================================================
+KEY BINDINGS                                          *jiracli.nvim-key-bindings*
+
+`<leader>ji` - `:JiraCliIssues`
+`<leader>jm` - `:JiraCliIssuesMe`
+`<leader>jc` - `:JiraCliIssuesBranch`
+
+==============================================================================
+LICENSE                                                    *jiracli.nvim-license*
+
+MIT License. Copyright © 2023 Gnu
+
+ vim:tw=78:ts=8:ft=help:norl:
