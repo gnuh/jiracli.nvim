@@ -2,12 +2,12 @@ local M = {}
 local logLevel = vim.log.levels.ERROR
 local api = vim.api
 local fn = vim.fn
-local cmd = vim.cmd
 
 function M.notify(msg, log)
   vim.notify(msg, log, {})
 end
 
+-- searches for an issue key in the given string that starts with the given prefix
 function M.find_issue_from_repo(str, prefix)
   local start = str:find(prefix, 1, true)
   if not start then
@@ -22,13 +22,10 @@ function M.find_issue_from_repo(str, prefix)
   return substring
 end
 
+-- extracts the value associated with the 'key' field in a multi-line string
 function M.extract_key_value(str)
-  local lines = {}
-  for line in str:gmatch("[^\r\n]+") do
-    table.insert(lines, line)
-  end
   local key_value = nil
-  for _, line in ipairs(lines) do
+  for line in str:gmatch("[^\r\n]+") do
     if line:find("^%s*key:%s*") then
       key_value = line:match("^%s*key:%s*(.-)%s*$")
     end
@@ -37,12 +34,14 @@ function M.extract_key_value(str)
   return key_value
 end
 
+-- retrieves the current Git branch name
 function M.get_current_branch()
   local git_cmd = "git rev-parse --abbrev-ref HEAD"
   local git_branch = fn.system(git_cmd)
   return git_branch:gsub("%s+", "")
 end
 
+-- retrieves the Jira project key from a configuration file
 function M.get_project_key()
   local jira_config = os.getenv("HOME") .. "/.config/.jira/.config.yml"
   local file = io.open(jira_config, "r")
@@ -53,6 +52,7 @@ function M.get_project_key()
   return M.extract_key_value(contents)
 end
 
+-- opens a new terminal window with a Jira CLI command
 function M.open_jira_terminal(jira_args)
   local args = jira_args or { "issue", "list" }
   local opts = {
@@ -82,7 +82,7 @@ function M.open_jira_terminal(jira_args)
     end,
   })
   fn.chansend(term_job_id, jira_input)
-  cmd("startinsert")
+  vim.cmd("startinsert")
 end
 
 return M

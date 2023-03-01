@@ -7,8 +7,9 @@ local default_config = {
   },
 }
 
-local function auto_cmd(auto_cmd)
-  if auto_cmd.which_key and pcall(require, "which-key") then
+-- Setup key mappings or which-key integration
+local setup_key_mappings = function(config)
+  if config.auto_cmd.which_key and pcall(require, "which-key") then
     local wk = require("which-key")
     wk.register({
       ["j"] = {
@@ -19,23 +20,27 @@ local function auto_cmd(auto_cmd)
       },
     }, { prefix = "<leader>" })
   else
-    local opts = { noremap = true, silent = true }
-    keymap("n", "<leader>ji", ":JiraCliIssues<CR>", opts)
-    keymap("n", "<leader>jm", ":JiraCliIssuesMe<CR>", opts)
-    keymap("n", "<leader>jc", ":JiraCliIssuesBranch<CR>", opts)
+    -- Define key mappings for non-which-key setup
+    vim.cmd("nnoremap <silent> <leader>ji :JiraCliIssues<CR>")
+    vim.cmd("nnoremap <silent> <leader>jm :JiraCliIssuesMe<CR>")
+    vim.cmd("nnoremap <silent> <leader>jc :JiraCliIssuesBranch<CR>")
   end
 end
 
-local function setup(config)
+-- Define commands for opening Jira issues
+local define_commands = function()
+  vim.cmd("command! JiraCliIssues lua require'jiracli'.issues()")
+  vim.cmd("command! JiraCliIssuesMe lua require'jiracli'.issues_me()")
+  vim.cmd("command! JiraCliIssuesBranch lua require'jiracli'.issues_branch()")
+end
+
+-- Setup JiraCli plugin
+local setup = function(config)
   config = config or default_config
   if config.auto_cmd.enable then
-    auto_cmd(config.auto_cmd)
+    setup_key_mappings(config)
   end
-  vim.cmd([[
-    command! JiraCliIssues lua require'jiracli'.issues()
-    command! JiraCliIssuesMe lua require'jiracli'.issues_me()
-    command! JiraCliIssuesBranch lua require'jiracli'.issues_branch()
-  ]])
+  define_commands()
 end
 
 return {
