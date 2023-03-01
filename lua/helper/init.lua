@@ -3,12 +3,12 @@ local logLevel = vim.log.levels.ERROR
 local api = vim.api
 local fn = vim.fn
 
-function M.notify(msg, log)
+M.notify = function(msg, log)
   vim.notify(msg, log, {})
 end
 
 -- searches for an issue key in the given string that starts with the given prefix
-function M.find_issue_from_repo(str, prefix)
+M.find_issue_from_repo = function(str, prefix)
   local start = str:find(prefix, 1, true)
   if not start then
     return nil
@@ -23,7 +23,7 @@ function M.find_issue_from_repo(str, prefix)
 end
 
 -- extracts the value associated with the 'key' field in a multi-line string
-function M.extract_key_value(str)
+M.extract_key_value = function(str)
   local key_value = nil
   for line in str:gmatch("[^\r\n]+") do
     if line:find("^%s*key:%s*") then
@@ -35,14 +35,14 @@ function M.extract_key_value(str)
 end
 
 -- retrieves the current Git branch name
-function M.get_current_branch()
+M.get_current_branch = function()
   local git_cmd = "git rev-parse --abbrev-ref HEAD"
   local git_branch = fn.system(git_cmd)
   return git_branch:gsub("%s+", "")
 end
 
 -- retrieves the Jira project key from a configuration file
-function M.get_project_key()
+M.get_project_key = function()
   local jira_config = os.getenv("HOME") .. "/.config/.jira/.config.yml"
   local file = io.open(jira_config, "r")
   local contents = file:read("*all")
@@ -53,7 +53,8 @@ function M.get_project_key()
 end
 
 -- opens a new terminal window with a Jira CLI command
-function M.open_jira_terminal(jira_args)
+M.open_jira_terminal = function(jira_args)
+  print("OPENING TERMINAL")
   local args = jira_args or { "issue", "list" }
   local opts = {
     relative = "editor",
