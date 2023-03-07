@@ -14,16 +14,16 @@ local setup_key_mappings = function(config)
     wk.register({
       ["j"] = {
         name = "Jira",
-        i = { "<cmd>JiraCliIssues<CR>", "Issues" },
-        m = { "<cmd>JiraCliIssuesMe<CR>", "Issues Me" },
-        c = { "<cmd>JiraCliIssuesBranch<CR>", "Issues Current" },
+        a = { "<cmd>JiraCliIssues<CR>", "All Issues" },
+        m = { "<cmd>JiraCliIssuesMe<CR>", "My Issues" },
+        b = { "<cmd>JiraCliIssuesBranch<CR>", "Issues From Git/Branch" },
       },
     }, { prefix = "<leader>" })
   else
     -- Define key mappings for non-which-key setup
-    vim.cmd("nnoremap <silent> <leader>ji :JiraCliIssues<CR>")
+    vim.cmd("nnoremap <silent> <leader>ja :JiraCliIssues<CR>")
     vim.cmd("nnoremap <silent> <leader>jm :JiraCliIssuesMe<CR>")
-    vim.cmd("nnoremap <silent> <leader>jc :JiraCliIssuesBranch<CR>")
+    vim.cmd("nnoremap <silent> <leader>jb :JiraCliIssuesBranch<CR>")
   end
 end
 

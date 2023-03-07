@@ -85,9 +85,9 @@ and "77" is the "ISSUE-ID"
 
 ```lua
 local opts = { noremap = true, silent = true }
-keymap("n", "<leader>ji", ":JiraCliIssues<CR>", opts)
+keymap("n", "<leader>ja", ":JiraCliIssues<CR>", opts)
 keymap("n", "<leader>jm", ":JiraCliIssuesMe<CR>", opts)
-keymap("n", "<leader>jc", ":JiraCliIssuesBranch<CR>", opts)
+keymap("n", "<leader>jb", ":JiraCliIssuesBranch<CR>", opts)
 ```
 
 # Todo List
