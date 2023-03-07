@@ -54,7 +54,6 @@ end
 
 -- opens a new terminal window with a Jira CLI command
 M.open_jira_terminal = function(jira_args)
-  print("OPENING TERMINAL")
   local args = jira_args or { "issue", "list" }
   local opts = {
     relative = "editor",
